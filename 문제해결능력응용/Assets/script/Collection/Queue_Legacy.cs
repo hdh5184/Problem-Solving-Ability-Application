@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Queue : MonoBehaviour
+public class Queue_Legacy : MonoBehaviour
 {
     // 총알 프리펩
     public GameObject BulletPrefab;

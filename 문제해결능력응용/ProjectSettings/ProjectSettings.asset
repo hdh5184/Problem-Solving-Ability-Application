@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 33950958ce07a4ef6b4f9027ae814100
+  productGUID: 2b99d276af7d24b3f94ad2c25ad2d81b
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9 2\uC8FC\uCC28"
+  productName: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -674,15 +674,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9 2\uC8FC\uCC28"
+  metroPackageName: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9"
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9
-    2\uC8FC\uCC28"
+  metroApplicationDescription: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9"
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -751,10 +750,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 659e42d1-7b7c-47bd-a407-d51b5b44a6c9
+  cloudProjectId: 8538b6dd-f277-4826-8393-5d898fe37669
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9 2\uC8FC\uCC28 2024-03-14_16-22-23"
+  projectName: "\uBB38\uC81C\uD574\uACB0\uB2A5\uB825\uC751\uC6A9"
   organizationId: hdh5184
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
