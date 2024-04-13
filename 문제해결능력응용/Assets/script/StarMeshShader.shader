@@ -2,53 +2,82 @@ Shader "Custom/StarMeshShader"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        //_MainTex ("Texture", 2D) = "white" {}
+        _AmbientColor("AmbientColor", Color) = (1,1,1,1)
+        _DiffuseColor("DiffuseColor", Color) = (1,1,1,1)
+        _LightDirection("LightDirection", Vector) = (1,1,1,0)
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 200
+        Tags { "RenderType"="Opaque" } //불투명 : Opaque
+        LOD 100
 
-        CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
-
-        // Use shader model 3.0 target, to get nicer looking lighting
-        #pragma target 3.0
-
-        sampler2D _MainTex;
-
-        struct Input
+        Pass
         {
-            float2 uv_MainTex;
-        };
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
-        half _Glossiness;
-        half _Metallic;
-        fixed4 _Color;
+            #include "UnityCG.cginc"
 
-        // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-        // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-        // #pragma instancing_options assumeuniformscaling
-        UNITY_INSTANCING_BUFFER_START(Props)
-            // put more per-instance properties here
-        UNITY_INSTANCING_BUFFER_END(Props)
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
 
-        void surf (Input IN, inout SurfaceOutputStandard o)
-        {
-            // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = float3(1, 1, 0);
-            //o.Emission = float3(1, 1, 0);
-            // Metallic and smoothness come from slider variables
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            o.Alpha = c.a;
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                float3 normal : NORMAL;
+            };
+
+            float4 _AmbientColor;
+            float4 _DiffuseColor;
+            float4 _LightDirection;
+
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.normal = v.normal;
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target
+            {
+                //fixed4 col = float4(1,1,0,1);
+
+                float4 ambient = _AmbientColor;
+
+                float lightDir = normalize(_LightDirection);
+                float lightIntensity = max(dot(i.normal, lightDir),0);
+                float4 diffuse = _DiffuseColor * lightIntensity * 1;
+
+                // Phong
+                float3 reflectDir = normalize(reflect(-lightDir, i.normal));
+				float spec = pow(max(dot(normalize(_WorldSpaceCameraPos), reflectDir), 0), 4);
+				float4 specular = spec * 0.5;
+
+                // Blinn Phong
+                //float3 halfDir = normalize(lightDir + _WorldSpaceCameraPos);
+                //float spec = pow(max(0, dot(i.normal, halfDir)), 8);
+                //float4 specular = spec * (1,1,1,1);
+
+                float4 col = ambient + diffuse + specular;
+
+
+                // [any] -> Cartoon
+                float threshold = 0.3;
+				float3 banding = floor(col / threshold);
+				float3 finalIntensity = banding * threshold;
+				col = float4(finalIntensity.x, finalIntensity.y, finalIntensity.z, 1.0);
+
+
+                //return float4(i.normal, 1.0f);
+                return col;
+            }
+            ENDCG
         }
-        ENDCG
     }
-    FallBack "Diffuse"
 }

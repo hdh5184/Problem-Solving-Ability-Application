@@ -95,9 +95,12 @@ Material:
     - _WindQuality: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _AmbientColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.8089887, b: 0, a: 1}
     - _Color1: {r: 1, g: 0.739583, b: 0, a: 1}
+    - _DiffuseColor: {r: 0, g: 0.4666667, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.1}
+    - _LightDirection: {r: 1, g: 1, b: 1, a: 0}
     - _SubsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
