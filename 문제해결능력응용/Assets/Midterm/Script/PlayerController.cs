@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject cameraPosObj;
 
+    public Vector3 startPos;
+
     Camera camera;
     Vector3 cameraPos;
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
         camera.transform.eulerAngles = new Vector3(45, 45, 0);
         rotateYDes = transform.eulerAngles.y;
         cameraPosObj.transform.position = camera.transform.position;
+        transform.position = startPos;
     }
 
     void Update()
@@ -56,6 +59,19 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(
             rb.position + transform.TransformDirection(moveVec) * 3f * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Key"))
+        {
+            GameManager.isDoorLock = false;
+            other.gameObject.SetActive(false);
+        }
+        if (other.CompareTag("Goal"))
+        {
+            GameManager.gm.GameClear();
+        }
     }
 
     void OnCollisionExit(Collision collision)

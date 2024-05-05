@@ -7,6 +7,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject Terrain_Plane;
     public GameObject wallPrefab;
     public GameObject doorPrefab;
+    public GameObject keyPrefab;
     public GameObject playerPrefab;
 
     public GameObject playerStartPos;
@@ -17,7 +18,7 @@ public class MapGenerator : MonoBehaviour
     public int[][] Wall;
 
 
-    void Start()
+    void Awake()
     {
         GameObject walls = new GameObject("Walls");
         PlaneScale = Terrain_Plane.transform.localScale.x;
@@ -57,6 +58,12 @@ public class MapGenerator : MonoBehaviour
                         obj.GetComponent<Wall>().wallScale = new Vector3(wallScale, Wall[i][j], wallScale);
                         obj.GetComponent<Wall>().isDoor = false;
                         break;
+                    case 4:
+                        obj = Instantiate(keyPrefab, walls.transform);
+                        obj.GetComponent<Wall>().wallScale = new Vector3(wallScale, Wall[i][j], wallScale);
+                        obj.GetComponent<Wall>().isDoor = false;
+                        GameManager.gm.key = obj;
+                        break;
                     case 3:
                         obj = Instantiate(doorPrefab, walls.transform);
                         obj.GetComponent<Wall>().wallScale = new Vector3(wallScale * 0.1f, 2, wallScale);
@@ -64,6 +71,7 @@ public class MapGenerator : MonoBehaviour
                         if (Wall[i][j - 1] == 0)
                             obj.transform.rotation = Quaternion.Euler(0, 90, 0);
                         break;
+
                 }
 
                 if (obj != null)
@@ -76,7 +84,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        playerPrefab.transform.position = new Vector3(
+        playerPrefab.GetComponent<PlayerController>().startPos = new Vector3(
             playerStartPos.transform.position.x, 1f, playerStartPos.transform.position.z);
     }
 }

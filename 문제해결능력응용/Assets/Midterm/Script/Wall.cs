@@ -35,8 +35,15 @@ public class Wall : MonoBehaviour
 
     private void Update()
     {
-        if (isDoor && !GameManager.isDoorLock)
+        if (isDoor)
         {
+            if (GameManager.isDoorLock)
+            {
+                GetComponent<BoxCollider>().isTrigger = false; return;
+            }
+            else
+                GetComponent<BoxCollider>().isTrigger = true;
+
             Collider[] hit = Physics.OverlapBox(doorPos, Vector3.one, Quaternion.identity);
             
             bool isHit = false;
