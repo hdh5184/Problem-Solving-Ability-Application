@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         camera = Camera.main;
         camera.transform.eulerAngles = new Vector3(45, 45, 0);
         rotateYDes = transform.eulerAngles.y;
-        cameraPosObj.transform.position = camera.transform.position;
+        camera.transform.position = cameraPosObj.transform.position;
         transform.position = startPos;
     }
 
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void Move(Vector3 moveVec)
     {
         rb.MovePosition(
-            rb.position + transform.TransformDirection(moveVec) * 3f * Time.deltaTime);
+            rb.position + transform.TransformDirection(moveVec) * 4f * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,10 +68,16 @@ public class PlayerController : MonoBehaviour
             GameManager.isDoorLock = false;
             other.gameObject.SetActive(false);
         }
-        if (other.CompareTag("Goal"))
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
         {
-            GameManager.gm.GameClear();
+            case "Goal": GameManager.gm.GameClear(); break;
+            case "Enemy": GameManager.gm.GameOver(); break;
         }
+
     }
 
     void OnCollisionExit(Collision collision)

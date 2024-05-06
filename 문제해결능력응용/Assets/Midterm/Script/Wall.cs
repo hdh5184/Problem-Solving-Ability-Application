@@ -20,8 +20,8 @@ public class Wall : MonoBehaviour
 
     void Start()
     {
-        transform.position = wallPos;
         transform.localScale = wallScale;
+        transform.position = wallPos;
         doorPos = wallPos;
         firstDoorDegY = transform.eulerAngles.y;
 
@@ -60,7 +60,6 @@ public class Wall : MonoBehaviour
                         isDoorOpen = true;
                         Vector3 dis = doorPos - GameManager.playerPos;
                         dis = Quaternion.AngleAxis(-firstDoorDegY, Vector3.up) * dis;
-                        Debug.Log(dis);
 
                         isDoorOpenLeft = (dis.x < 0) ? true : false;
                     }

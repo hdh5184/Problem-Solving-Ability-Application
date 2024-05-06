@@ -9,6 +9,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject doorPrefab;
     public GameObject keyPrefab;
     public GameObject playerPrefab;
+    public GameObject EnemyPrefab;
 
     public GameObject playerStartPos;
     public GameObject playerGoalPos;
@@ -60,7 +61,7 @@ public class MapGenerator : MonoBehaviour
                         break;
                     case 4:
                         obj = Instantiate(keyPrefab, walls.transform);
-                        obj.GetComponent<Wall>().wallScale = new Vector3(wallScale, Wall[i][j], wallScale);
+                        obj.GetComponent<Wall>().wallScale = Vector3.one * wallScale;
                         obj.GetComponent<Wall>().isDoor = false;
                         GameManager.gm.key = obj;
                         break;
@@ -71,14 +72,22 @@ public class MapGenerator : MonoBehaviour
                         if (Wall[i][j - 1] == 0)
                             obj.transform.rotation = Quaternion.Euler(0, 90, 0);
                         break;
-
+                    case 5: obj = Instantiate(EnemyPrefab); break;
                 }
 
                 if (obj != null)
                 {
+                    if (Wall[i][j] == 5)
+                    {
+                        obj.transform.position = new Vector3(
+                            wallPosMin + wallScale * (i + 0.5f),
+                            1f,
+                            wallPosMin + wallScale * (j + 0.5f));
+                        continue;
+                    }
                     obj.GetComponent<Wall>().wallPos = new Vector3(
                     wallPosMin + wallScale * (i + 0.5f),
-                    0.5f * obj.transform.localScale.y,
+                    (Wall[i][j] == 1) ? 0.5f : 1f,
                     wallPosMin + wallScale * (j + 0.5f));
                 }
             }

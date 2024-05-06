@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -55,7 +56,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 1f;
-            GameInit();
+            SceneManager.LoadScene(0);
+            //GameInit();
         }
     }
 }
